@@ -450,12 +450,8 @@ h2 {
 
 .pixelated-hero {
   width: 100%;
-  max-width: 500px;
   height: 300px;
-  object-fit: cover;
   image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
   border: 3px solid #ddd;
   display: block;
   margin: 0 auto;
