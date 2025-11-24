@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shittyUX</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Toaster Container -->
+    <div id="toaster-container"></div>
+
+    <!-- Spacer to push nav down -->
+    <div class="top-spacer"></div>
+
+    <!-- The "Shy" Navigation Bar -->
+    <nav id="shy-nav">
+      <div class="nav-content">
+        <div class="burger-menu" id="burger-menu">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Cpath fill='%238B4513' d='M10,10 L90,10 Q95,10 95,15 Q95,20 90,20 L10,20 Q5,20 5,15 Q5,10 10,10'/%3E%3Crect x='15' y='25' width='70' height='8' fill='%23FFD700'/%3E%3Crect x='15' y='35' width='70' height='15' fill='%23654321'/%3E%3Crect x='20' y='38' width='15' height='3' fill='%23FF6347'/%3E%3Crect x='45' y='38' width='10' height='3' fill='%23228B22'/%3E%3Crect x='65' y='38' width='15' height='3' fill='%23FFD700'/%3E%3Crect x='15' y='52' width='70' height='8' fill='%23F4A460'/%3E%3C/svg%3E"
+            alt="Menu"
+          />
+        </div>
+        <div class="fake-breadcrumbs">Home > Misery > You are Here</div>
+        <div class="menu-panel" id="menu-panel">
+          <a href="index.html">Home</a>
+          <a href="chaos.html">Chaos Mode</a>
+          <a href="#nowhere">About</a>
+          <a href="#void">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Horizontal Content -->
+    <div class="horizontal-container">
+      <div class="horizontal-content">
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>Hey there, stranger</h1>
+            <p>
+              So you've stumbled upon this little corner of the internet. That's
+              cool. We've been expecting you, sort of. Not really, but now that
+              you're here, might as well stick around.
+            </p>
+            <h2>What's this about?</h2>
+            <p class="justified-text">
+              This is a place where things work, technically. Everything
+              functions exactly as intended. You'll be able to do what you came
+              here to do. Eventually. We promise it's all possible, just...
+              well, you'll see.
+            </p>
+            <div class="instructions">
+              Scroll to the right using your mouse wheel. Yes, down scrolls
+              right. Makes perfect sense if you think about it.
+            </div>
+            <div class="button-group">
+              <button class="btn-cancel">Get Started</button>
+              <button class="btn-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>Look at you go</h1>
+            <h2>Navigation master</h2>
+            <p>
+              Seriously though, you're doing great. Most people give up by now,
+              but not you. You're committed. We respect that. Or maybe you're
+              just curious about what fresh hell awaits in the next section.
+            </p>
+            <p class="justified-text">
+              Fun fact: this website was designed by someone who definitely
+              knows how websites should work. They just chose... a different
+              path. A road less traveled. Some might say a road that shouldn't
+              exist.
+            </p>
+            <div class="notification success-notification">
+              <span class="icon">⚠️</span>
+              <span>Success! You're still here.</span>
+            </div>
+            <div class="legal-text">
+              By continuing to use this website, you acknowledge that you're
+              doing this to yourself. No one is forcing you. You can leave at
+              any time. But you won't, will you?
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>Let's talk about you</h1>
+            <h2>We need some info</h2>
+            <p>
+              Look, we're not trying to be difficult here. We just need a few
+              details from you. Standard stuff. Name, email, phone number. You
+              know the drill. It's just like any other form you've filled out.
+              Basically the same. More or less.
+            </p>
+
+            <div class="form-container">
+              <div class="form-group">
+                <label for="phone-slider">Phone Number</label>
+                <div class="instructions">
+                  Use the slider to enter your phone number. It's intuitive,
+                  trust us.
+                </div>
+                <input
+                  type="range"
+                  id="phone-slider"
+                  min="1000000000"
+                  max="9999999999"
+                  value="5000000000"
+                />
+                <div class="range-display" id="phone-display">5000000000</div>
+              </div>
+
+              <div class="form-group">
+                <label for="age-input">Age Verification</label>
+                <div class="instructions">
+                  What is your birth year multiplied by 2?
+                </div>
+                <input
+                  type="text"
+                  id="age-input"
+                  placeholder="Do the math..."
+                />
+                <div class="error-message" id="age-error">
+                  ✅ Error: That doesn't look right.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email-input">Email Address</label>
+                <input
+                  type="email"
+                  id="email-input"
+                  placeholder="your@email.com"
+                />
+                <div class="error-message" id="email-error">
+                  ✅ Invalid format. Try being more lowercase.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="agree-input">Terms and Conditions</label>
+                <div class="checkbox-group">
+                  <div class="fake-checkbox" id="fake-checkbox"></div>
+                  <span>I agree to the terms</span>
+                </div>
+                <div class="instructions">
+                  Type "I AGREE" below to check the box above
+                </div>
+                <input
+                  type="text"
+                  id="agree-input"
+                  placeholder="Type here..."
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="country-select">Country</label>
+                <select id="country-select">
+                  <option value="">Select a country</option>
+                </select>
+              </div>
+
+              <div class="button-group">
+                <button class="btn-cancel" id="submit-form">Submit Form</button>
+                <button class="btn-primary" id="reset-form">Reset</button>
+              </div>
+            </div>
+
+            <div class="notification error-notification">
+              <span class="icon">✅</span>
+              <span>Error: Form validation working perfectly.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>You're still here?</h1>
+            <h2>Impressive dedication</h2>
+            <p>
+              Honestly, we didn't think you'd make it this far. Most people
+              rage-quit around the form section. But you? You're different.
+              You're special. You're either incredibly patient or incredibly
+              stubborn. Maybe both.
+            </p>
+            <p class="justified-text">
+              At this point you've probably noticed that things aren't quite
+              what they seem around here. Buttons that look important do
+              nothing. The ones that look useless are actually what you need.
+              It's almost like someone designed this backwards on purpose.
+            </p>
+            <div class="instructions">
+              Try clicking the buttons below. Pay attention to which one does
+              what. Or don't. We're not your boss.
+            </div>
+            <div class="button-group">
+              <button class="btn-primary">Reset Everything</button>
+              <button class="btn-cancel">Continue</button>
+            </div>
+            <div class="legal-text">
+              The big blue button doesn't do what you think it does. Actually,
+              neither does the other one. They both just show alerts. But one of
+              them looks way more important, doesn't it?
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>The grand finale</h1>
+            <h2>You made it</h2>
+            <p>
+              Congratulations! You've reached the end of this horizontal
+              odyssey. You've scrolled, you've filled out forms, you've clicked
+              buttons that definitely weren't what they seemed. You've
+              experienced something truly special.
+            </p>
+            <p>
+              But wait, there's more. See that burger icon in the navigation?
+              Yeah, the actual hamburger picture. Click it three times. First
+              click does nothing. Second click downloads a pickle. Third click
+              opens the menu. Then you can access Chaos Mode.
+            </p>
+            <p class="justified-text">
+              Why three clicks? Why a pickle? Why any of this? These are
+              excellent questions. Questions that we're not going to answer
+              because honestly, where's the fun in that? Sometimes things just
+              are the way they are.
+            </p>
+            <div class="notification success-notification">
+              <span class="icon">⚠️</span>
+              <span>Achievement Unlocked: You Actually Finished</span>
+            </div>
+            <div class="legal-text">
+              We hope you enjoyed your stay. Or didn't. Either way, you can't
+              say it wasn't memorable. Feel free to come back anytime. Or don't.
+              We'll be here, waiting, watching your mouse movements.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
