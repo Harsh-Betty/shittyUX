@@ -6,10 +6,11 @@
 }
 
 body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   background-color: #f5f5f5;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
+  cursor: none;
+  width: 110vw;
 }
 
 /* notification */
@@ -42,20 +43,27 @@ body {
 }
 
 /* buttons */
-
 .btn-cancel {
-  background: transparent;
+  background: #e0e0e0;
   color: #666;
-  border: none;
+  border: 1px solid #ccc;
   padding: 8px 12px;
   font-size: 13px;
   text-decoration: underline;
-  cursor: pointer;
   font-family: Arial, sans-serif;
+  border-radius: 4px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transition-delay: 0.5s;
+}
+
+.btn-cancel span {
+  pointer-events: auto;
 }
 
 .btn-cancel:hover {
-  color: #999;
+  background: #d0d0d0;
+  color: #555;
 }
 
 .btn-primary {
@@ -66,9 +74,14 @@ body {
   font-size: 18px;
   font-weight: bold;
   border-radius: 8px;
-  cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
   transition: all 0.3s ease;
+  transition-delay: 0.5s;
+  pointer-events: none;
+}
+
+.btn-primary span {
+  pointer-events: auto;
 }
 
 .btn-primary:hover {
@@ -136,7 +149,6 @@ body {
   border: none;
   font-size: 8px;
   line-height: 8px;
-  cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
@@ -159,6 +171,7 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   position: relative;
+  width: 100vw;
 }
 
 #shy-nav.shy-away {
@@ -176,7 +189,6 @@ body {
 
 /* burger menu */
 .burger-menu {
-  cursor: pointer;
   width: 50px;
   height: 40px;
   transition: transform 0.2s;
@@ -195,7 +207,6 @@ body {
   color: #ecf0f1;
   font-size: 14px;
   user-select: none;
-  cursor: default;
 }
 
 .menu-panel {
@@ -219,12 +230,9 @@ body {
   color: #3498db;
 }
 
-/* scroll container */
 .horizontal-container {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
+  height: 100%;
 }
 
 .horizontal-container::-webkit-scrollbar {
@@ -233,19 +241,19 @@ body {
 
 .horizontal-content {
   display: flex;
-  flex-direction: row;
-  width: max-content;
-  min-height: calc(100vh - 280px);
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .content-section {
-  width: 100vw;
-  min-height: calc(100vh - 280px);
+  width: 100%;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px;
-  border-right: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
 }
 
 .content-section:nth-child(odd) {
@@ -258,8 +266,7 @@ body {
 
 .section-inner {
   max-width: 600px;
-  margin-left: 48%;
-  transform: translateX(-48%);
+  margin: 0 auto;
 }
 
 .section-inner h1 {
@@ -291,7 +298,8 @@ h2 {
 }
 
 @keyframes blink-soft {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -320,11 +328,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .section-inner {
-    margin-left: 48%;
-    transform: translateX(-48%);
-  }
-
   .nav-content {
     flex-wrap: wrap;
   }
@@ -370,7 +373,7 @@ h2 {
   border: 2px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
-  font-family: 'Comic Sans MS', cursive;
+  font-family: "Comic Sans MS", cursive;
 }
 
 .form-group input[type="range"] {
@@ -437,4 +440,149 @@ h2 {
 
 .success-message.show {
   display: block;
+}
+
+/* low-res image */
+.hero-image-container {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.pixelated-hero {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  object-fit: cover;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  border: 3px solid #ddd;
+  display: block;
+  margin: 0 auto;
+}
+
+.hover-scream-container {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.hover-scream-image {
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  object-fit: cover;
+  border: 3px solid #ddd;
+  transition: transform 0.1s;
+  display: block;
+  margin: 0 auto;
+}
+
+.hover-scream-image:hover {
+  transform: scale(1.02);
+}
+
+/* video player */
+.video-container {
+  margin: 25px 0;
+  text-align: center;
+  position: relative;
+}
+
+.fake-video {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  object-fit: cover;
+  border: 3px solid #333;
+  display: block;
+  margin: 0 auto;
+}
+
+.fake-video:hover {
+  opacity: 0.9;
+}
+
+.image-caption {
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+/* slow load */
+.slow-load {
+  opacity: 0;
+  animation: slowFadeIn 5s ease forwards;
+}
+
+@keyframes slowFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hitbox Prank Button */
+.interaction-demo {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.demo-item {
+  text-align: center;
+}
+
+.hitbox-prank-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 20px 50px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  pointer-events: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  transition-delay: 0.5s;
+}
+
+.hitbox-prank-btn span {
+  pointer-events: auto;
+}
+
+.hitbox-prank-btn:hover {
+  background: #218838;
+}
+
+.hitbox-prank-btn:active {
+  transform: scale(0.98);
+}
+
+.double-click-btn {
+  background: #ffc107;
+  color: #333;
+  border: none;
+  padding: 20px 50px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  transition-delay: 0.5s;
+  pointer-events: none;
+}
+
+.double-click-btn span {
+  pointer-events: auto;
+}
+
+.double-click-btn:hover {
+  background: #ffb300;
+}
+
+.demo-hint {
+  font-size: 11px;
+  color: #999;
+  margin-top: 8px;
+  font-style: italic;
 }

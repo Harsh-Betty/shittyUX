@@ -54,10 +54,6 @@
               Scroll to the right using your mouse wheel. Yes, down scrolls
               right. Makes perfect sense if you think about it.
             </div>
-            <div class="button-group">
-              <button class="btn-cancel">Get Started</button>
-              <button class="btn-primary">Cancel</button>
-            </div>
           </div>
         </div>
 
@@ -70,12 +66,33 @@
               but not you. You're committed. We respect that. Or maybe you're
               just curious about what fresh hell awaits in the next section.
             </p>
+            
+            <div class="hero-image-container">
+              <img 
+                src="assets/hero-pixelated.jpg" 
+                alt="Hero" 
+                class="pixelated-hero slow-load"
+              />
+              <div class="image-caption">crisp quality guaranteed</div>
+            </div>
+            
             <p class="justified-text">
               Fun fact: this website was designed by someone who definitely
               knows how websites should work. They just chose... a different
               path. A road less traveled. Some might say a road that shouldn't
               exist.
             </p>
+            
+            <div class="hover-scream-container">
+              <img 
+                src="assets/hover-me.jpg" 
+                alt="Hover over me" 
+                class="hover-scream-image slow-load"
+                id="hover-scream"
+              />
+              <div class="image-caption">try hovering over this totally normal image</div>
+            </div>
+            
             <div class="notification success-notification">
               <span class="icon">⚠️</span>
               <span>Success! You're still here.</span>
@@ -167,8 +184,8 @@
               </div>
 
               <div class="button-group">
-                <button class="btn-cancel" id="submit-form">Submit Form</button>
-                <button class="btn-primary" id="reset-form">Reset</button>
+                <button class="btn-cancel" id="submit-form"><span>Submit Form</span></button>
+                <button class="btn-primary" id="reset-form"><span>Reset</span></button>
               </div>
             </div>
 
@@ -189,24 +206,45 @@
               You're special. You're either incredibly patient or incredibly
               stubborn. Maybe both.
             </p>
+            
+            <div class="video-container">
+              <img 
+                src="assets/fake-video.jpg" 
+                alt="Video Player" 
+                class="fake-video slow-load"
+                id="fake-video"
+              />
+              <div class="image-caption">definitely a working video player</div>
+            </div>
+            
             <p class="justified-text">
               At this point you've probably noticed that things aren't quite
               what they seem around here. Buttons that look important do
               nothing. The ones that look useless are actually what you need.
               It's almost like someone designed this backwards on purpose.
             </p>
-            <div class="instructions">
-              Try clicking the buttons below. Pay attention to which one does
-              what. Or don't. We're not your boss.
+            
+            <div class="interaction-demo">
+              <div class="demo-item">
+                <button class="hitbox-prank-btn" id="hitbox-btn">
+                  <span>Click Me (if you can)</span>
+                </button>
+                <div class="demo-hint">hint: only the text is clickable</div>
+              </div>
+              
+              <div class="demo-item">
+                <button class="double-click-btn" id="double-click-btn">
+                  <span>Mystery Button</span>
+                </button>
+                <div class="demo-hint">something feels off about this one</div>
+              </div>
             </div>
-            <div class="button-group">
-              <button class="btn-primary">Reset Everything</button>
-              <button class="btn-cancel">Continue</button>
-            </div>
+            
             <div class="legal-text">
-              The big blue button doesn't do what you think it does. Actually,
-              neither does the other one. They both just show alerts. But one of
-              them looks way more important, doesn't it?
+              Notice how your cursor feels a bit... drunk? That's intentional.
+              Also, try hovering over buttons. Feel that delay? Satisfying,
+              isn't it? Some buttons might need a double-click. Who knows which
+              ones though.
             </div>
           </div>
         </div>
