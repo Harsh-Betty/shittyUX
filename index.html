@@ -23,6 +23,9 @@
           />
         </div>
         <div class="fake-breadcrumbs">Home > Misery > You are Here</div>
+        <div class="search-container">
+          <input type="text" id="fake-search" placeholder="Search..." />
+        </div>
         <div class="menu-panel" id="menu-panel">
           <a href="index.html">Home</a>
           <a href="chaos.html">Chaos Mode</a>
@@ -66,33 +69,39 @@
               but not you. You're committed. We respect that. Or maybe you're
               just curious about what fresh hell awaits in the next section.
             </p>
-            
+
             <div class="hero-image-container">
-              <img 
-                src="assets/hero-pixelated.jpg" 
-                alt="Hero" 
+              <div class="buffering-overlay" id="hero-buffer">
+                <div class="spinner"></div>
+              </div>
+              <img
+                src="assets/hero-pixelated.jpg"
+                alt="Hero"
                 class="pixelated-hero slow-load"
+                id="hero-image"
               />
               <div class="image-caption">crisp quality guaranteed</div>
             </div>
-            
+
             <p class="justified-text">
               Fun fact: this website was designed by someone who definitely
               knows how websites should work. They just chose... a different
               path. A road less traveled. Some might say a road that shouldn't
               exist.
             </p>
-            
+
             <div class="hover-scream-container">
-              <img 
-                src="assets/hover-me.jpg" 
-                alt="Hover over me" 
+              <img
+                src="assets/hover-me.jpg"
+                alt="Hover over me"
                 class="hover-scream-image slow-load"
                 id="hover-scream"
               />
-              <div class="image-caption">try hovering over this totally normal image</div>
+              <div class="image-caption">
+                try hovering over this totally normal image
+              </div>
             </div>
-            
+
             <div class="notification success-notification">
               <span class="icon">⚠️</span>
               <span>Success! You're still here.</span>
@@ -184,8 +193,12 @@
               </div>
 
               <div class="button-group">
-                <button class="btn-cancel" id="submit-form"><span>Submit Form</span></button>
-                <button class="btn-primary" id="reset-form"><span>Reset</span></button>
+                <button class="btn-cancel" id="submit-form">
+                  <span>Submit Form</span>
+                </button>
+                <button class="btn-primary" id="reset-form">
+                  <span>Reset</span>
+                </button>
               </div>
             </div>
 
@@ -206,24 +219,24 @@
               You're special. You're either incredibly patient or incredibly
               stubborn. Maybe both.
             </p>
-            
+
             <div class="video-container">
-              <img 
-                src="assets/fake-video.jpg" 
-                alt="Video Player" 
+              <img
+                src="assets/fake-video.jpg"
+                alt="Video Player"
                 class="fake-video slow-load"
                 id="fake-video"
               />
               <div class="image-caption">definitely a working video player</div>
             </div>
-            
+
             <p class="justified-text">
               At this point you've probably noticed that things aren't quite
               what they seem around here. Buttons that look important do
               nothing. The ones that look useless are actually what you need.
               It's almost like someone designed this backwards on purpose.
             </p>
-            
+
             <div class="interaction-demo">
               <div class="demo-item">
                 <button class="hitbox-prank-btn" id="hitbox-btn">
@@ -231,7 +244,7 @@
                 </button>
                 <div class="demo-hint">hint: only the text is clickable</div>
               </div>
-              
+
               <div class="demo-item">
                 <button class="double-click-btn" id="double-click-btn">
                   <span>Mystery Button</span>
@@ -239,12 +252,149 @@
                 <div class="demo-hint">something feels off about this one</div>
               </div>
             </div>
-            
+
             <div class="legal-text">
               Notice how your cursor feels a bit... drunk? That's intentional.
               Also, try hovering over buttons. Feel that delay? Satisfying,
               isn't it? Some buttons might need a double-click. Who knows which
               ones though.
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>Downloads & Resources</h1>
+            <h2>Totally Safe Downloads</h2>
+            <p>
+              Need more power? Of course you do. Everyone needs more power.
+              Download some extra RAM directly from our servers. It's free, it's
+              fast, and it definitely works.
+            </p>
+
+            <div class="download-section">
+              <button class="btn-primary" id="download-ram">
+                <span>Download 32GB RAM</span>
+              </button>
+              <div
+                class="progress-container"
+                id="ram-progress-container"
+                style="display: none"
+              >
+                <div class="progress-bar" id="ram-progress"></div>
+              </div>
+              <div class="error-message" id="ram-error">
+                ✅ Error: Download failed. You are already full.
+              </div>
+            </div>
+
+            <h2>Verify Humanity</h2>
+            <p>To proceed, please complete the lyrics:</p>
+            <div class="form-group">
+              <label for="lyrics-captcha">Never gonna ______ you up.</label>
+              <select id="lyrics-captcha"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-inner">
+            <h1>Security Verification</h1>
+            <h2>Just a few more checks</h2>
+            <p>
+              We value your security. Please complete these additional
+              verification steps to ensure you are who you say you are.
+            </p>
+
+            <div class="form-container">
+              <div class="form-group">
+                <label for="plan-select">Choose a Plan</label>
+                <select id="plan-select">
+                  <option value="starter">Starter (Basic)</option>
+                  <option value="pro">Pro (Better)</option>
+                  <option value="enterprise">Enterprise (Best)</option>
+                  <option value="god">God Mode (Unavailable)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="adv-password">Create Password</label>
+                <input
+                  type="password"
+                  id="adv-password"
+                  placeholder="Password..."
+                />
+                <div class="error-message" id="pwd-error"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="hover-delete-input"
+                  >Backup Email (Don't hover the trash!)</label
+                >
+                <div class="input-with-icon">
+                  <input
+                    type="text"
+                    id="hover-delete-input"
+                    placeholder="backup@email.com"
+                  />
+                  <span class="trash-icon" id="trash-icon">🗑️</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="color-thief-input">Favorite Color</label>
+                <input
+                  type="text"
+                  id="color-thief-input"
+                  class="color-thief"
+                  placeholder="Type anything..."
+                />
+              </div>
+
+              <div class="form-group">
+                <div class="label-style">Select your fate (Choose wisely)</div>
+                <div class="radio-group" id="fate-radios">
+                  <label
+                    ><input type="radio" name="fate" value="1" /> Option
+                    A</label
+                  >
+                  <label
+                    ><input type="radio" name="fate" value="2" /> Option
+                    B</label
+                  >
+                  <label
+                    ><input type="radio" name="fate" value="3" /> Option
+                    C</label
+                  >
+                </div>
+                <button
+                  class="btn-primary"
+                  id="reset-fate"
+                  style="margin-top: 10px"
+                >
+                  <span>Reset Fate</span>
+                </button>
+              </div>
+
+              <div class="form-group">
+                <div class="label-style">Phone Number (Binary Entry)</div>
+                <div class="instructions">
+                  Check boxes to set bits (1024 max per digit). Good luck.
+                </div>
+                <div class="binary-input" id="binary-container"></div>
+                <div class="range-display" id="binary-display">0</div>
+                <button class="btn-cancel" id="submit-binary-digit">
+                  <span>Submit Digit</span>
+                </button>
+              </div>
+
+              <div class="form-group">
+                <label for="tos-box">Terms of Service</label>
+                <div class="tos-box" id="tos-box" tabindex="0"></div>
+                <button class="btn-primary" id="tos-agree" disabled>
+                  <span>I Agree</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -286,5 +436,84 @@
     </div>
 
     <script src="script.js"></script>
+
+    <div id="cookie-banner" class="cookie-banner">
+      <div class="cookie-content">
+        <p>This site uses cookies to rick-roll you.</p>
+        <div class="cookie-buttons">
+          <button class="btn-primary" id="cookie-accept">
+            <span>Accept All</span>
+          </button>
+          <button class="btn-cancel" id="cookie-manage">
+            <span>Manage Preferences</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="cookie-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content cookie-modal-content">
+        <h2>Manage Preferences</h2>
+        <p>Customize your tracking experience.</p>
+        <div class="toggle-list" id="cookie-toggles"></div>
+        <div class="modal-footer">
+          <button class="btn-primary" id="cookie-save">
+            <span>Save Preferences</span>
+          </button>
+          <p class="legal-text">
+            <a href="#" id="cookie-reject">Reject All</a>
+          </p>
+        </div>
+        <button class="modal-close" id="cookie-close">×</button>
+      </div>
+    </div>
+
+    <div id="idle-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <h2>Are you still there?</h2>
+        <p>You haven't moved in 30 seconds.</p>
+        <div class="button-group">
+          <button class="btn-primary" id="idle-logout">
+            <span>Log Me Out</span>
+          </button>
+          <button class="btn-cancel" id="idle-stay">
+            <span>I'm Still Here</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="survey-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <h2>How are we doing?</h2>
+        <p>Rate your experience so far.</p>
+        <div class="survey-options">
+          <button class="survey-btn">Amazing</button>
+          <button class="survey-btn">Great</button>
+          <button class="survey-btn">Good</button>
+        </div>
+        <div class="success-message" id="survey-thanks">
+          ⚠️ Thank you for your feedback!
+        </div>
+      </div>
+    </div>
+
+    <div id="newsletter-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <h2>DON'T GO!</h2>
+        <p>Get our newsletter!</p>
+        <input type="email" placeholder="Enter your email" />
+        <div class="button-group">
+          <button class="btn-primary"><span>Subscribe</span></button>
+          <button class="btn-cancel">
+            <span>No thanks, I hate good content.</span>
+          </button>
+        </div>
+        <div class="fake-close-container">
+          <div class="real-close" id="newsletter-real-close"></div>
+          <div class="fake-close">×</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
