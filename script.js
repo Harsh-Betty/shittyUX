@@ -598,9 +598,18 @@ function initConsoleHijack() {
     "%c shittyUX",
     "color: #ff4444; font-size: 20px; font-weight: bold; font-style: italic; font-family: comic sans ms;"
   );
+
+  const originalLog = console.log;
+  const originalAlert = window.alert;
+
+  // console.log -> alert
   console.log = function (message) {
-    alert(message);
-    // recursive hell if we called originalLog here and it triggered something else
+    originalAlert(message);
+  };
+
+  // alert -> console.log
+  window.alert = function (message) {
+    originalLog(message);
   };
 }
 
@@ -629,7 +638,7 @@ function initAntiAccessibility() {
 function initHijacker() {
   document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-  document.body.style.userSelect = "none";
+  document.body.style.userSelect = "auto";
 
   const inputs = document.querySelectorAll("input");
   inputs.forEach((input) => {
@@ -744,7 +753,10 @@ function initFakeSearch() {
       alert("Searching...");
       setTimeout(() => {
         alert("1 Result Found: 'About Us' (Lyrics)");
-        window.location.href = "#nowhere";
+        window.location.href = "#about-section";
+        document
+          .getElementById("about-section")
+          .scrollIntoView({ behavior: "smooth" });
       }, 1000);
     }
   });
@@ -818,6 +830,8 @@ function initAdvancedPassword() {
   pwd.addEventListener("blur", () => {
     const val = pwd.value;
     let errs = [];
+    const now = new Date();
+    const currentMinute = now.getMinutes();
 
     if (val.includes("e")) errs.push("Must not contain 'e'.");
     if (val.length < 8 || val.length > 9)
@@ -825,6 +839,10 @@ function initAdvancedPassword() {
     if (!val.includes("20") && !val.includes("25"))
       errs.push("Must include today's temp (C).");
     if (!/[✈︎✂︎❄︎]/.test(val)) errs.push("Must include a Wingdings character.");
+    if (!val.includes(currentMinute.toString()))
+      errs.push(`Must include the current minute (${currentMinute}).`);
+    if (/[aeiou]/i.test(val.replace("e", "")))
+      errs.push("Must not contain vowels.");
 
     if (errs.length > 0) {
       error.textContent = "✅ " + errs.join(" ");
@@ -865,11 +883,23 @@ function initBinaryPhone() {
 
   let phoneNumber = "";
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 3; i >= 0; i--) {
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.flexDirection = "column";
+    div.style.alignItems = "center";
+
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.value = Math.pow(2, i);
-    container.appendChild(cb);
+
+    const label = document.createElement("span");
+    label.textContent = Math.pow(2, i);
+    label.style.fontSize = "10px";
+
+    div.appendChild(cb);
+    div.appendChild(label);
+    container.appendChild(div);
   }
 
   const btnSpan = submitBtn.querySelector("span");
@@ -883,8 +913,12 @@ function initBinaryPhone() {
       cb.checked = false;
     });
 
-    const digit = val % 10;
-    phoneNumber += digit;
+    if (val > 9) {
+      alert(`Error: ${val} is not a single digit (0-9). Learn binary better.`);
+      return;
+    }
+
+    phoneNumber += val;
     display.textContent = phoneNumber;
 
     if (phoneNumber.length >= 10) {
@@ -954,7 +988,7 @@ function initCookieBanner() {
   acceptSpan.addEventListener("click", (e) => {
     e.stopPropagation();
     banner.style.display = "none";
-    setTimeout(() => (banner.style.display = "flex"), 5000);
+    setTimeout(() => (banner.style.display = "flex"), 30000);
   });
 
   const manageSpan = manage.querySelector("span");
@@ -972,12 +1006,44 @@ function initCookieModal() {
 
   if (!modal) return;
 
+  const companies = [
+    "Google",
+    "Meta",
+    "Amazon",
+    "Microsoft",
+    "Apple",
+    "Netflix",
+    "Tesla",
+    "Uber",
+    "Twitter",
+    "TikTok",
+    "Oracle",
+    "Adobe",
+    "Salesforce",
+    "IBM",
+    "Intel",
+    "Samsung",
+    "Cisco",
+    "Nvidia",
+    "Qualcomm",
+    "AMD",
+    "Skynet",
+    "Umbrella Corp",
+    "Cyberdyne",
+    "InGen",
+    "Weyland-Yutani",
+    "Massive Dynamic",
+    "Aperture Science",
+    "Tyrell Corp",
+    "Oscorp",
+    "Stark Ind",
+  ];
+
   for (let i = 0; i < 150; i++) {
     const div = document.createElement("div");
     div.className = "toggle-item";
-    div.innerHTML = `<span>Partner #${
-      i + 1
-    }</span> <input type="checkbox" checked>`;
+    const partner = companies[i % companies.length];
+    div.innerHTML = `<span>${partner}</span> <input type="checkbox" checked>`;
     list.appendChild(div);
   }
 
@@ -1045,22 +1111,6 @@ function initSurveyModal() {
   });
 }
 
-function initNewsletterModal() {
-  const modal = document.getElementById("newsletter-modal");
-  if (!modal) return;
-
-  document.addEventListener("mouseleave", (e) => {
-    if (e.clientY < 10) {
-      modal.style.display = "flex";
-    }
-  });
-
-  const realClose = document.getElementById("newsletter-real-close");
-  realClose.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   initHorizontalScroll();
   initShyMenu();
@@ -1099,5 +1149,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initCookieModal();
   initIdleModal();
   initSurveyModal();
-  initNewsletterModal();
 });
