@@ -1,18 +1,19 @@
 function initHorizontalScroll() {
-  const horizontalContainer = document.querySelector(".horizontal-container");
-  if (!horizontalContainer) return;
+  const scrollContainer = document.querySelector(".main-wrapper");
+  if (!scrollContainer) return;
 
   window.addEventListener(
     "wheel",
     (e) => {
+      // Prevent default so the browser doesn't handle scrolling
       e.preventDefault();
 
       const verticalInput = e.deltaY;
       const horizontalInput = e.deltaX;
 
-      window.scrollBy({
-        left: verticalInput * 0.8,
-        top: horizontalInput * 0.8,
+      scrollContainer.scrollBy({
+        left: verticalInput,
+        top: horizontalInput,
         behavior: "auto",
       });
     },
@@ -26,20 +27,16 @@ function initShyMenu() {
   if (!shyNav) return;
 
   let lastScrollY = window.scrollY;
-  let scrollSpeed = 0;
-  let shyTimeout;
 
   window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
-    scrollSpeed = Math.abs(currentScrollY - lastScrollY);
+    const scrollSpeed = Math.abs(currentScrollY - lastScrollY);
 
-    if (currentScrollY < lastScrollY && scrollSpeed > 20) {
+    // Hide if scrolling down fast
+    if (currentScrollY > lastScrollY && scrollSpeed > 5) {
       shyNav.classList.add("shy-away");
-
-      clearTimeout(shyTimeout);
-      shyTimeout = setTimeout(() => {
-        shyNav.classList.remove("shy-away");
-      }, 500);
+    } else if (currentScrollY < lastScrollY) {
+      shyNav.classList.remove("shy-away");
     }
 
     lastScrollY = currentScrollY;
@@ -70,16 +67,12 @@ function initBurgerMenuRoulette() {
         downloadPickle();
         break;
 
-      case 3:
-        menuPanel.classList.add("active");
+      case 3: {
+        const isFlex = menuPanel.style.display === "flex";
+        console("Menu Status: " + (isFlex ? "Closed" : "Open"));
         clickState = 0;
         break;
-    }
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!burgerMenu.contains(e.target) && !menuPanel.contains(e.target)) {
-      menuPanel.classList.remove("active");
+      }
     }
   });
 }
@@ -101,35 +94,29 @@ function initToaster() {
   if (!toasterContainer) return;
 
   const uselessMessages = [
+    "Your mouse moved.",
+    "Pixel rendered successfully.",
+    "Time has passed.",
+    "You blinked.",
+    "CPU cycle completed.",
+    "Memory allocated.",
+    "Nothing happened.",
+    "Breathing detected.",
+    "Internet connection... exists.",
+    "Your cursor is being tracked.",
+    "Status: Still here.",
+    "Background process: existing.",
+    "Congratulations on existing.",
+    "The website is still working.",
     "You are breathing manually now.",
     "Are you sure you wanted to scroll there?",
     "That click felt hesitant.",
-    "We saw you look away.",
     "Your posture is terrible.",
     "Don't look behind you.",
-    "You've been on this page for 3 years (subjectively).",
-
-    "CSS Variable --hope is undefined.",
-    "Error: Success operation failed successfully.",
-    "Memory leak detected in user's hippocampus.",
-    "Div #404 is actually a Span. Critical failure.",
     "Render cycle 49202: Pixels look tired.",
-    "garbage_collector.js picked up your dreams.",
     "NaN is not a number, but it is a mood.",
     "Uncaught ReferenceError: 'Meaning' is not defined.",
-
-    "Microphone access denied. Listening anyway...",
-    "Webcam light disabled. Recording active.",
-    " keystroke logged: '?'",
-    "Uploading your cursor data to the Dark Web...",
-    "Connecting to printer... Printing 'HELP ME'.",
-    "Your IP address tastes like vanilla.",
-
-    "Oh, you're still here?",
-    "I wouldn't have clicked that if I were you.",
-    "Nice mouse wiggle. Very expressive.",
     "Loading assets... or am I?",
-    "This popup is more important than the content.",
     "Please stop moving the mouse, it tickles.",
   ];
 
@@ -137,20 +124,24 @@ function initToaster() {
     const toast = document.createElement("div");
     toast.className = "toast";
 
+    // Random type/color
     const types = ["info", "warning", "error", "fatal"];
     const type = types[Math.floor(Math.random() * types.length)];
     toast.classList.add(type);
 
     const content = document.createElement("div");
     content.className = "toast-content";
-    content.innerHTML = `<strong>[${type.toUpperCase()}]</strong> ${message}`;
+    content.innerHTML = `<strong>${
+      type.charAt(0).toUpperCase() + type.slice(1)
+    }:</strong> ${message}`;
 
     const closeBtn = document.createElement("button");
     closeBtn.className = "toast-close";
     closeBtn.textContent = "×";
 
+    // Close button annoyance
     closeBtn.addEventListener("mouseover", () => {
-      if (Math.random() > 0.8) {
+      if (Math.random() > 0.7) {
         closeBtn.style.transform = `translate(${Math.random() * 20 - 10}px, ${
           Math.random() * 20 - 10
         }px)`;
@@ -160,7 +151,7 @@ function initToaster() {
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       toast.style.transition = "all 0.2s";
-      toast.style.transform = "scale(0) rotate(720deg)";
+      toast.style.transform = "scale(0) rotate(360deg)";
       setTimeout(() => toast.remove(), 200);
     });
 
@@ -168,7 +159,8 @@ function initToaster() {
     toast.appendChild(closeBtn);
     toasterContainer.appendChild(toast);
 
-    const duration = Math.random() * 4000 + 3000;
+    // Auto remove after random time
+    const duration = Math.random() * 4000 + 4000;
     setTimeout(() => {
       if (toast.parentElement) {
         toast.style.opacity = "0";
@@ -178,7 +170,7 @@ function initToaster() {
   }
 
   function scheduleNextToast() {
-    const interval = Math.random() * 6000 + 2000;
+    const interval = Math.random() * 30000 + 30000;
 
     setTimeout(() => {
       const randomMessage =
@@ -190,26 +182,15 @@ function initToaster() {
 
   setTimeout(() => {
     scheduleNextToast();
-  }, 1000);
-}
-
-/* button swap - now handled by individual button handlers with span clicks */
-function initButtonDemos() {
-  // This function is kept for backwards compatibility but button logic
-  // is now handled by initFormSubmit and other specific handlers
-  // All buttons now require clicking on the span (text) only
+  }, 5000);
 }
 
 /* random bold words */
 function initRandomBold() {
-  const paragraphs = document.querySelectorAll(".section-inner p");
+  const paragraphs = document.querySelectorAll("p");
 
   paragraphs.forEach((p) => {
-    if (
-      p.classList.contains("instructions") ||
-      p.classList.contains("legal-text")
-    )
-      return;
+    if (p.closest(".cookie-content") || p.closest(".modal-content")) return;
 
     const words = p.textContent.split(" ");
     let newHTML = "";
@@ -250,6 +231,7 @@ function initAgeVerification() {
       ageError.classList.remove("show");
     } else if (ageInput.value.trim() !== "") {
       ageError.classList.add("show");
+      console("Hint: You might be doing the math wrong. Or right. Who knows.");
     }
   });
 }
@@ -265,6 +247,7 @@ function initEmailValidation() {
 
     if (email && email !== email.toLowerCase()) {
       emailError.classList.add("show");
+      console("Hint: Shhh... lower your voice (and your casing).");
     } else {
       emailError.classList.remove("show");
     }
@@ -279,6 +262,9 @@ function initUnclickableCheckbox() {
 
   fakeCheckbox.addEventListener("click", (e) => {
     e.preventDefault();
+    console(
+      "Hint: You can't just click it. You have to earn it. (Type 'I AGREE')"
+    );
   });
 
   agreeInput.addEventListener("input", () => {
@@ -292,7 +278,6 @@ function initUnclickableCheckbox() {
 
 async function initCountryDropdown() {
   const select = document.getElementById("country-select");
-
   if (!select) return;
 
   try {
@@ -301,7 +286,6 @@ async function initCountryDropdown() {
     );
     const countries = await response.json();
 
-    // sorting algorithm
     const sortedCountries = countries.sort((a, b) => {
       const aArea = a.area || 1;
       const bArea = b.area || 1;
@@ -352,6 +336,9 @@ function initFormSubmit() {
       if (submitClicks === 1) {
         submitTimer = setTimeout(() => {
           submitClicks = 0;
+          console(
+            "Hint: One click is never enough for something this important."
+          );
         }, 500);
       } else if (submitClicks === 2) {
         clearTimeout(submitTimer);
@@ -362,8 +349,7 @@ function initFormSubmit() {
         const email = document.getElementById("email-input").value;
         const checkbox = document.getElementById("fake-checkbox");
 
-        let message = "Form Status:\n\n";
-
+        let message = "Status:\n\n";
         if (phone) message += `Phone: ${phone}\n`;
         if (age) message += `Age Math: ${age}\n`;
         if (email) message += `Email: ${email}\n`;
@@ -373,10 +359,13 @@ function initFormSubmit() {
           message += "Terms: Not agreed (type 'I AGREE')\n";
         }
 
-        message +=
-          "\n(This button requires a DOUBLE-CLICK and only the text is clickable!)";
+        const pwd = document.getElementById("adv-password");
+        const pwdErr = document.getElementById("pwd-error");
+        if (pwd.value && pwdErr.style.display !== "none") {
+          message += "\nPassword: Failed (See green error)";
+        }
 
-        alert(message);
+        console(message);
       }
     });
   }
@@ -386,9 +375,7 @@ function initFormSubmit() {
   if (resetSpan) {
     resetSpan.addEventListener("click", (e) => {
       e.stopPropagation();
-      alert(
-        "This is the ACTUAL reset button, even though it looks big and important!"
-      );
+      console("Resetting... (This button actually works!)");
       document.getElementById("phone-slider").value = "5000000000";
       document.getElementById("phone-display").textContent = "5000000000";
       document.getElementById("age-input").value = "";
@@ -405,7 +392,6 @@ function initHoverScream() {
   if (!hoverImage) return;
 
   let audioContext;
-  let hasHovered = false;
 
   hoverImage.addEventListener("mouseenter", () => {
     if (!audioContext) {
@@ -413,45 +399,26 @@ function initHoverScream() {
     }
 
     const osc1 = audioContext.createOscillator();
-    const osc2 = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
     osc1.type = "sawtooth";
-    osc2.type = "square";
-
-    const baseFreq = 180 + Math.random() * 50;
-    osc1.frequency.setValueAtTime(baseFreq, audioContext.currentTime);
-    osc2.frequency.setValueAtTime(baseFreq * 1.41, audioContext.currentTime);
-
+    osc1.frequency.setValueAtTime(100, audioContext.currentTime);
     osc1.frequency.exponentialRampToValueAtTime(
-      40,
-      audioContext.currentTime + 0.4
-    );
-    osc2.frequency.exponentialRampToValueAtTime(
-      30,
-      audioContext.currentTime + 0.4
+      50,
+      audioContext.currentTime + 0.5
     );
 
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(
       0.01,
-      audioContext.currentTime + 0.4
+      audioContext.currentTime + 0.5
     );
 
     osc1.connect(gainNode);
-    osc2.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
     osc1.start(audioContext.currentTime);
-    osc2.start(audioContext.currentTime);
-
     osc1.stop(audioContext.currentTime + 0.5);
-    osc2.stop(audioContext.currentTime + 0.5);
-
-    if (!hasHovered) {
-      hasHovered = true;
-      console.warn("AudioDriver_v2.sys failure: Emotional dampeners offline.");
-    }
   });
 }
 
@@ -501,9 +468,7 @@ function initHitboxPrank() {
 
   span.addEventListener("click", (e) => {
     e.stopPropagation();
-    alert(
-      "Congrats! You found the clickable part.\n\nThe button padding? Useless."
-    );
+    console("You found the only clickable pixel! Welcome to the trial.");
   });
 }
 
@@ -514,19 +479,22 @@ function initDoubleClickButton() {
   let clicks = 0;
   let timer;
 
-  doubleClickBtn.addEventListener("click", () => {
+  const span = doubleClickBtn.querySelector("span");
+  if (!span) return;
+
+  span.addEventListener("click", (e) => {
+    e.stopPropagation();
     clicks++;
 
     if (clicks === 1) {
       timer = setTimeout(() => {
         clicks = 0;
+        console("Hint: Is one click enough?");
       }, 500);
     } else if (clicks === 2) {
       clearTimeout(timer);
       clicks = 0;
-      alert(
-        "You figured it out!\n\nThis button requires a double-click.\n\nWe just forgot to tell you."
-      );
+      console("Success: You figured out the Mystery Button!");
     }
   });
 }
@@ -543,7 +511,7 @@ function initCursorGhosting() {
   const cursor = document.createElement("div");
   cursor.id = "laggy-cursor";
 
-  const cursorUrl = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M5 5 L5 25 L12 18 L15 27 L18 26 L15 17 L22 19 Z" fill="rgba(0,0,0,0.8)"/></svg>')`;
+  const cursorUrl = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M5 5 L5 25 L12 18 L15 27 L18 26 L15 17 L22 19 Z" fill="rgba(99,102,241,0.8)"/></svg>')`;
 
   cursor.style.cssText = `
     position: fixed;
@@ -581,10 +549,8 @@ function initCursorGhosting() {
   function updateCursor() {
     if (isInitialized) {
       const speed = 0.15;
-
       cursorX += (mouseX - cursorX) * speed;
       cursorY += (mouseY - cursorY) * speed;
-
       cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
     }
     requestAnimationFrame(updateCursor);
@@ -621,23 +587,16 @@ function initAntiAccessibility() {
     el.tabIndex = Math.floor(Math.random() * 100) - 50;
   });
 
-  const divs = document.querySelectorAll("div:not(#toaster-container)");
+  const divs = document.querySelectorAll("div");
   divs.forEach((div) => {
-    if (Math.random() > 0.8) {
+    if (Math.random() > 0.9) {
       div.setAttribute("role", "button");
-      div.setAttribute("aria-label", "Important Section");
     }
-  });
-
-  const buttons = document.querySelectorAll("button");
-  buttons.forEach((btn) => {
-    btn.setAttribute("role", "presentation");
   });
 }
 
 function initHijacker() {
   document.addEventListener("contextmenu", (e) => e.preventDefault());
-
   document.body.style.userSelect = "auto";
 
   const inputs = document.querySelectorAll("input");
@@ -661,44 +620,6 @@ function initHijacker() {
 }
 
 function initSoundBoard() {
-  let midiStarted = false;
-  const startMidi = () => {
-    if (midiStarted) return;
-    midiStarted = true;
-
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    const ctx = new AudioContext();
-
-    const playNote = (freq, time, dur) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "square";
-      osc.frequency.setValueAtTime(freq, time);
-      gain.gain.setValueAtTime(0.05, time);
-      gain.gain.linearRampToValueAtTime(0, time + dur);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(time);
-      osc.stop(time + dur);
-    };
-
-    let t = ctx.currentTime;
-    const loop = () => {
-      playNote(261.63, t, 0.2);
-      playNote(329.63, t + 0.2, 0.2);
-      playNote(392.0, t + 0.4, 0.2);
-      playNote(523.25, t + 0.6, 0.2);
-      t += 0.8;
-
-      if (ctx.state === "running") {
-        setTimeout(loop, 800);
-      }
-    };
-    loop();
-  };
-
-  document.addEventListener("click", startMidi, { once: true });
-
   document.addEventListener("click", (e) => {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioContext();
@@ -733,7 +654,7 @@ function initLyricsCaptcha() {
   const select = document.getElementById("lyrics-captcha");
   if (!select) return;
 
-  const options = ["Let", "Give", "Mess", "Pick", "Hurt", "Run"];
+  const options = ["#FF69B4", "#D2691E", "#B8860B", "#8B4513", "#CD853F"];
   options.sort((a, b) => a.length - b.length);
 
   options.forEach((opt) => {
@@ -741,6 +662,14 @@ function initLyricsCaptcha() {
     el.value = opt;
     el.textContent = opt;
     select.appendChild(el);
+  });
+
+  select.addEventListener("change", () => {
+    if (select.value !== "#D2691E") {
+      console(
+        "Hint: Rick's hair is definitely Chocolate. (Hex code for Chocolate is needed)"
+      );
+    }
   });
 }
 
@@ -750,10 +679,9 @@ function initFakeSearch() {
 
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-      alert("Searching...");
+      console("Searching knowledge base...");
       setTimeout(() => {
-        alert("1 Result Found: 'About Us' (Lyrics)");
-        window.location.href = "#about-section";
+        console("1 Result Found: 'Our Mission' (Lyrics)");
         document
           .getElementById("about-section")
           .scrollIntoView({ behavior: "smooth" });
@@ -818,6 +746,9 @@ function initUnSelectBox() {
   select.addEventListener("change", () => {
     if (select.selectedIndex > 0) {
       select.selectedIndex = select.selectedIndex - 1;
+      console(
+        "Hint: To select an option, you might need to click the one below it."
+      );
     }
   });
 }
@@ -847,6 +778,9 @@ function initAdvancedPassword() {
     if (errs.length > 0) {
       error.textContent = "✅ " + errs.join(" ");
       error.style.display = "block";
+      console(
+        "Hint: Check the 'success' message below the password field for requirements."
+      );
     } else {
       error.style.display = "none";
     }
@@ -872,6 +806,17 @@ function initTosScroll() {
       if (span) span.style.pointerEvents = "auto";
     }
   });
+
+  const btnWrapper = btn.parentElement;
+  if (btnWrapper) {
+    btn.addEventListener("click", (e) => {
+      if (btn.disabled) {
+        console(
+          "Hint: You must scroll to the very bottom of the terms. Slowly."
+        );
+      }
+    });
+  }
 }
 
 function initBinaryPhone() {
@@ -914,7 +859,9 @@ function initBinaryPhone() {
     });
 
     if (val > 9) {
-      alert(`Error: ${val} is not a single digit (0-9). Learn binary better.`);
+      console(
+        `Error: ${val} is not a single digit (0-9). Learn binary better.`
+      );
       return;
     }
 
@@ -922,7 +869,7 @@ function initBinaryPhone() {
     display.textContent = phoneNumber;
 
     if (phoneNumber.length >= 10) {
-      alert("Phone number entered: " + phoneNumber);
+      console("Phone number entered: " + phoneNumber);
       phoneNumber = "";
       display.textContent = "";
     }
@@ -938,6 +885,9 @@ function initHoverDelete() {
   trash.addEventListener("mouseenter", () => {
     timer = setTimeout(() => {
       input.value = "";
+      console(
+        "Hint: You hovered over the trash icon. That deletes the input. Oops."
+      );
     }, 1000);
   });
   trash.addEventListener("mouseleave", () => {
@@ -960,6 +910,7 @@ function initOneTimeRadio() {
   radios.forEach((r) => {
     r.addEventListener("click", () => {
       radios.forEach((rb) => (rb.disabled = true));
+      console("Hint: Fate is sealed. (Use the reset button to change)");
     });
   });
 
@@ -1042,7 +993,10 @@ function initCookieModal() {
   for (let i = 0; i < 150; i++) {
     const div = document.createElement("div");
     div.className = "toggle-item";
-    const partner = companies[i % companies.length];
+    const partner =
+      companies[i % companies.length] +
+      " Partner " +
+      Math.floor(Math.random() * 1000);
     div.innerHTML = `<span>${partner}</span> <input type="checkbox" checked>`;
     list.appendChild(div);
   }
@@ -1086,7 +1040,7 @@ function initIdleModal() {
   const logoutSpan = logout.querySelector("span");
   logoutSpan.addEventListener("click", (e) => {
     e.stopPropagation();
-    alert("Logging out... (Not really)");
+    console("Logging out... (Not really)");
     resetTimer();
   });
 }
@@ -1116,7 +1070,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initShyMenu();
   initBurgerMenuRoulette();
   initToaster();
-  initButtonDemos();
   initRandomBold();
   initPhoneSlider();
   initAgeVerification();
